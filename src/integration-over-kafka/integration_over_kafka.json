@@ -1,0 +1,455 @@
+{
+  "name": "projects/845831326219/locations/europe-west1/integrations/integration-over-kafka/versions/da3eb504-7adb-4bd6-95e2-c787b9dc8ddc",
+  "description": "Integration over Kafka",
+  "updateTime": "2023-02-09T19:57:21.048Z",
+  "createTime": "2023-02-08T15:47:14.568Z",
+  "lastModifierEmail": "slebrun@google.com",
+  "triggerConfigs": [{
+    "label": "Kafka Trigger",
+    "startTasks": [{
+      "taskId": "2"
+    }],
+    "properties": {
+      "IP Project name": "cloud-crm-eventbus-cpsexternal",
+      "Subscription name": "standalone-ip-prod-testing-10_from-kafka"
+    },
+    "triggerType": "CLOUD_PUBSUB_EXTERNAL",
+    "triggerNumber": "2",
+    "triggerId": "cloud_pubsub_external_trigger/projects/cloud-crm-eventbus-cpsexternal/subscriptions/standalone-ip-prod-testing-10_from-kafka"
+  }],
+  "taskConfigs": [{
+    "task": "GenericConnectorTask",
+    "taskId": "5",
+    "parameters": {
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "AdressChange__e"
+        }
+      },
+      "connectorInputPayload": {
+        "key": "connectorInputPayload",
+        "value": {
+          "stringValue": "$`Task_5_connectorInputPayload`$"
+        }
+      },
+      "config": {
+        "key": "config",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\",\n  \"connection\": {\n    \"connectionName\": \"projects/standalone-ip-prod-testing-10/locations/europe-west1/connections/demo-mt-sf\",\n    \"serviceName\": \"projects/z27eb4a909c543e0f-tp/locations/europe-west1/namespaces/connectors/services/runtime\"\n  },\n  \"operation\": \"CREATE_ENTITY\"\n}"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_5_connectorOutputPayload`$"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Push Event to SalesForce"
+  }, {
+    "task": "EmailTask",
+    "taskId": "1",
+    "parameters": {
+      "Cc": {
+        "key": "Cc",
+        "value": {
+          "stringArray": {
+          }
+        }
+      },
+      "TextBody": {
+        "key": "TextBody",
+        "value": {
+          "stringValue": "$CloudPubSubMessage$"
+        }
+      },
+      "Bcc": {
+        "key": "Bcc",
+        "value": {
+          "stringArray": {
+          }
+        }
+      },
+      "AttachmentPath": {
+        "key": "AttachmentPath",
+        "value": {
+          "stringArray": {
+          }
+        }
+      },
+      "To": {
+        "key": "To",
+        "value": {
+          "stringArray": {
+            "stringValues": ["slebrun@google.com"]
+          }
+        }
+      },
+      "BodyFormat": {
+        "key": "BodyFormat",
+        "value": {
+          "stringValue": "text"
+        }
+      },
+      "EmailConfigInput": {
+        "key": "EmailConfigInput",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.EmailConfig\"\n}"
+        }
+      },
+      "Subject": {
+        "key": "Subject",
+        "value": {
+          "stringValue": "Your message from Kafka"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Send message content by Email"
+  }, {
+    "task": "GenericRestV2Task",
+    "taskId": "4",
+    "parameters": {
+      "throwError": {
+        "key": "throwError",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "responseBody": {
+        "key": "responseBody",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_4_responseBody`$"]
+          }
+        }
+      },
+      "disableSSLValidation": {
+        "key": "disableSSLValidation",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "httpParams": {
+        "key": "httpParams"
+      },
+      "responseHeader": {
+        "key": "responseHeader",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_4_responseHeader`$"]
+          }
+        }
+      },
+      "userAgent": {
+        "key": "userAgent",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "httpMethod": {
+        "key": "httpMethod",
+        "value": {
+          "stringValue": "POST"
+        }
+      },
+      "responseStatus": {
+        "key": "responseStatus",
+        "value": {
+          "stringArray": {
+            "stringValues": ["$`Task_4_responseStatus`$"]
+          }
+        }
+      },
+      "url": {
+        "key": "url",
+        "value": {
+          "stringValue": "https://34.120.179.16.nip.io/message-from-kafka"
+        }
+      },
+      "urlFetchingService": {
+        "key": "urlFetchingService",
+        "value": {
+          "stringValue": "HARPOON"
+        }
+      },
+      "useSSL": {
+        "key": "useSSL",
+        "value": {
+          "booleanValue": false
+        }
+      },
+      "requestorId": {
+        "key": "requestorId",
+        "value": {
+          "stringValue": ""
+        }
+      },
+      "urlQueryStrings": {
+        "key": "urlQueryStrings"
+      },
+      "requestBody": {
+        "key": "requestBody",
+        "value": {
+          "stringValue": "$CloudPubSubMessage$"
+        }
+      },
+      "followRedirects": {
+        "key": "followRedirects",
+        "value": {
+          "booleanValue": true
+        }
+      },
+      "additionalHeaders": {
+        "key": "additionalHeaders"
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Send message by API"
+  }, {
+    "task": "GenericConnectorTask",
+    "taskId": "3",
+    "parameters": {
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "incident"
+        }
+      },
+      "connectorInputPayload": {
+        "key": "connectorInputPayload",
+        "value": {
+          "stringValue": "$`Task_3_connectorInputPayload`$"
+        }
+      },
+      "config": {
+        "key": "config",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\",\n  \"connection\": {\n    \"connectionName\": \"projects/standalone-ip-prod-testing-10/locations/europe-west1/connections/snow-incidents\",\n    \"serviceName\": \"projects/z27eb4a909c543e0f-tp/locations/europe-west1/namespaces/connectors/services/runtime\",\n    \"connectorVersion\": \"projects/standalone-ip-prod-testing-10/locations/global/providers/servicenow/connectors/servicenow/versions/1\"\n  },\n  \"operation\": \"CREATE_ENTITY\"\n}"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_3_connectorOutputPayload`$"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Record Incident in ServiceNow"
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "2",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$CloudPubSubMessage$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"GET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"data\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }, {\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"TO_JSON\"\n            }\n          }\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"GET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"type\"\n              }\n            }\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$message_type$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$CloudPubSubMessage$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"GET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"data\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }, {\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"TO_JSON\"\n            }\n          }\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"GET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"message\"\n              }\n            }\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$message$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "1",
+      "condition": "$message_type$\u003demail",
+      "displayName": "Email type"
+    }, {
+      "taskId": "4",
+      "condition": "$message_type$\u003dapi",
+      "displayName": "API type"
+    }, {
+      "taskId": "5",
+      "condition": "$message_type$\u003dsalesforce",
+      "displayName": "Salesforce type"
+    }, {
+      "taskId": "7",
+      "condition": "$message_type$\u003dincident",
+      "displayName": "Incident type"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Extract message type"
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "6",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\",\n  \"mappedFields\": [{\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$`Task_7_connectorOutputPayload`$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"GET_ELEMENT\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"intValue\": \"0\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"GET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"number\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"TO_STRING\"\n            }\n          }\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$Last_Incident_Number$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"INT_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$Last_Incident_Number$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"SUBSTRING\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"intValue\": \"9\"\n              }\n            }\n          }, {\n            \"initialValue\": {\n              \"literalValue\": {\n                \"intValue\": \"10\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"TO_INT\"\n            }\n          }\n        }, {\n          \"functionType\": {\n            \"intFunction\": {\n              \"functionName\": \"ADD\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"intValue\": \"1\"\n              }\n            }\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$Int_incremented$\",\n      \"fieldType\": \"INT_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"STRING_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$Last_Incident_Number$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"SUBSTRING\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"literalValue\": {\n                \"intValue\": \"0\"\n              }\n            }\n          }, {\n            \"initialValue\": {\n              \"literalValue\": {\n                \"intValue\": \"9\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"stringFunction\": {\n              \"functionName\": \"CONCAT\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"referenceValue\": \"$Int_incremented$\"\n            },\n            \"transformationFunctions\": [{\n              \"functionType\": {\n                \"intFunction\": {\n                  \"functionName\": \"TO_STRING\"\n                }\n              }\n            }]\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$New_Incident_Number$\",\n      \"fieldType\": \"STRING_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$Incident$\"\n        },\n        \"transformationFunctions\": [{\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"SET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"referenceValue\": \"$New_Incident_Number$\"\n            }\n          }, {\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"number\"\n              }\n            }\n          }]\n        }, {\n          \"functionType\": {\n            \"jsonFunction\": {\n              \"functionName\": \"SET_PROPERTY\"\n            }\n          },\n          \"parameters\": [{\n            \"initialValue\": {\n              \"referenceValue\": \"$message$\"\n            }\n          }, {\n            \"initialValue\": {\n              \"literalValue\": {\n                \"stringValue\": \"short_description\"\n              }\n            }\n          }]\n        }]\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$Incident$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }, {\n    \"inputField\": {\n      \"fieldType\": \"JSON_VALUE\",\n      \"transformExpression\": {\n        \"initialValue\": {\n          \"referenceValue\": \"$Incident$\"\n        }\n      }\n    },\n    \"outputField\": {\n      \"referenceKey\": \"$`Task_3_connectorInputPayload`$\",\n      \"fieldType\": \"JSON_VALUE\",\n      \"cardinality\": \"OPTIONAL\"\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "3"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Generate Incident"
+  }, {
+    "task": "GenericConnectorTask",
+    "taskId": "7",
+    "parameters": {
+      "listEntitiesSortByColumns": {
+        "key": "listEntitiesSortByColumns",
+        "value": {
+          "stringValue": "$`Task_7_listEntitiesSortByColumns`$"
+        }
+      },
+      "filterClause": {
+        "key": "filterClause",
+        "value": {
+          "stringValue": "$`Task_7_filterClause`$"
+        }
+      },
+      "listEntitiesPageToken": {
+        "key": "listEntitiesPageToken",
+        "value": {
+          "stringValue": "$`Task_7_listEntitiesPageToken`$"
+        }
+      },
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "incident"
+        }
+      },
+      "listEntitiesPageSize": {
+        "key": "listEntitiesPageSize",
+        "value": {
+          "stringValue": "$`Task_7_listEntitiesPageSize`$"
+        }
+      },
+      "listEntitiesNextPageToken": {
+        "key": "listEntitiesNextPageToken",
+        "value": {
+          "stringValue": "$`Task_7_listEntitiesNextPageToken`$"
+        }
+      },
+      "config": {
+        "key": "config",
+        "value": {
+          "jsonValue": "{\n  \"@type\": \"type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\",\n  \"connection\": {\n    \"connectionName\": \"projects/standalone-ip-prod-testing-10/locations/europe-west1/connections/snow-incidents\",\n    \"serviceName\": \"projects/z27eb4a909c543e0f-tp/locations/europe-west1/namespaces/connectors/services/runtime\"\n  },\n  \"operation\": \"LIST_ENTITIES\"\n}"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_7_connectorOutputPayload`$"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "6"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Get Last Incident from ServiceNow"
+  }],
+  "integrationParameters": [{
+    "key": "CloudPubSubMessage",
+    "dataType": "JSON_VALUE",
+    "displayName": "CloudPubSubMessage",
+    "isTransient": true,
+    "producer": "2_2",
+    "jsonSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"title\": \"Cloud Pub/Sub Message\",\n  \"description\": \"Message received by Cloud Pub/Sub.\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\",\n      \"description\": \"The message data sent by the publisher\"\n    },\n    \"attributes\": {\n      \"type\": \"object\",\n      \"description\": \"Attributes for this message\"\n    },\n    \"messageId\": {\n      \"type\": \"string\",\n      \"description\": \"ID of this message, assigned by the server when the message is published. Guaranteed to be unique within the topic.\"\n    },\n    \"publishTime\": {\n      \"type\": \"string\",\n      \"description\": \"The time at which the message was published, populated by the server when it receives the topics.publish call\"\n    },\n    \"orderingKey\": {\n      \"type\": \"string\",\n      \"description\": \"Identifies related messages for which publish order should be respected.\"\n    }\n  }\n}"
+  }, {
+    "key": "message_type",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "message_type"
+  }, {
+    "key": "`Task_4_responseHeader`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_responseHeader`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_responseBody`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_responseBody`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_responseStatus`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_responseStatus`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "`Task_5_connectorInputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_5_connectorInputPayload`",
+    "producer": "1_5"
+  }, {
+    "key": "`Task_5_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_5_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_5"
+  }, {
+    "key": "`Task_3_connectorInputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_3_connectorInputPayload`",
+    "producer": "1_3",
+    "jsonSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"sys_id\": {\n      \"type\": \"string\",\n      \"readOnly\": false\n    },\n    \"active\": {\n      \"type\": [\"boolean\", \"null\"],\n      \"readOnly\": false\n    },\n    \"activity_due\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"additional_assignee_list\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"approval\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"approval_history\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"approval_set\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"assigned_to\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"assigned_to_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"assignment_group\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"assignment_group_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"business_duration\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"business_impact\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"business_service\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"business_service_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"business_stc\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"calendar_duration\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"calendar_stc\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"caller_id\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"caller_id_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"category\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"cause\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"caused_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"caused_by_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"child_incidents\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"close_code\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"close_notes\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"closed_at\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"closed_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"closed_by_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"cmdb_ci\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"cmdb_ci_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"comments\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"comments_and_work_notes\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"company\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"company_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"contact_type\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"contract\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"contract_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"correlation_display\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"correlation_id\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"delivery_plan\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"delivery_plan_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"delivery_task\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"delivery_task_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"description\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"due_date\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"escalation\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"expected_start\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"follow_up\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"group_list\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"hold_reason\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"impact\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"incident_state\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"knowledge\": {\n      \"type\": [\"boolean\", \"null\"],\n      \"readOnly\": false\n    },\n    \"location\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"location_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"made_sla\": {\n      \"type\": [\"boolean\", \"null\"],\n      \"readOnly\": false\n    },\n    \"notify\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"number\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"opened_at\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"opened_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"opened_by_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"order\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"origin_id\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"origin_table\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"parent\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"parent_incident\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"parent_incident_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"parent_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"priority\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"problem_id\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"problem_id_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"reassignment_count\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"rejection_goto\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"rejection_goto_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"reopen_count\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"reopened_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"reopened_by_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"reopened_time\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"resolved_at\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"resolved_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"resolved_by_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"rfc\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"rfc_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"route_reason\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"service_offering\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"service_offering_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"severity\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"short_description\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sla_due\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"state\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"subcategory\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_class_name\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_created_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_created_on\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_domain\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_domain_path\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_mod_count\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_tags\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_updated_by\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"sys_updated_on\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"task_effective_number\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"time_worked\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"universal_request\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"universal_request_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"upon_approval\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"upon_reject\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"urgency\": {\n      \"type\": [\"number\", \"null\"],\n      \"readOnly\": false\n    },\n    \"user_input\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"variables\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"watch_list\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"wf_activity\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"wf_activity_link\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"work_end\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"work_notes\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"work_notes_list\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    },\n    \"work_start\": {\n      \"type\": [\"string\", \"null\"],\n      \"readOnly\": false\n    }\n  }\n}"
+  }, {
+    "key": "`Task_3_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_3_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_3"
+  }, {
+    "key": "Incident",
+    "dataType": "JSON_VALUE",
+    "displayName": "Incident"
+  }, {
+    "key": "New_Incident_Number",
+    "dataType": "STRING_VALUE",
+    "displayName": "New_Incident_Number"
+  }, {
+    "key": "Int_incremented",
+    "dataType": "INT_VALUE",
+    "displayName": "Int_incremented"
+  }, {
+    "key": "Last_Incident_Number",
+    "dataType": "STRING_VALUE",
+    "displayName": "Last_Incident_Number"
+  }, {
+    "key": "message",
+    "dataType": "STRING_VALUE",
+    "displayName": "message"
+  }, {
+    "key": "`Task_7_listEntitiesPageSize`",
+    "dataType": "INT_VALUE",
+    "displayName": "`Task_7_listEntitiesPageSize`",
+    "producer": "1_7"
+  }, {
+    "key": "`Task_7_listEntitiesPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_7_listEntitiesPageToken`",
+    "producer": "1_7"
+  }, {
+    "key": "`Task_7_listEntitiesSortByColumns`",
+    "dataType": "STRING_ARRAY",
+    "displayName": "`Task_7_listEntitiesSortByColumns`",
+    "producer": "1_7"
+  }, {
+    "key": "`Task_7_filterClause`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_7_filterClause`",
+    "producer": "1_7"
+  }, {
+    "key": "`Task_7_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_7_connectorOutputPayload`",
+    "isTransient": true,
+    "producer": "1_7"
+  }, {
+    "key": "`Task_7_listEntitiesNextPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_7_listEntitiesNextPageToken`",
+    "isTransient": true,
+    "producer": "1_7"
+  }]
+}
